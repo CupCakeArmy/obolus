@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "scripts": {
+    "pkg": "tsc && pkg --targets latest-alpine-x64 --output ./server dist/server.js",
+    "pkg:mac": "tsc && pkg --targets latest-macos-x64 --output ./server-macos dist/server.js",
+    "prod": "NODE_ENV=production node dist/server.js",
+    "dev": "tsnd --no-notify src/server.ts"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.2.2",
+    "@types/koa-router": "^7.0.40",
+    "@types/uuid": "^3.4.4",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "class-validator": "^0.9.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "memiens": "^1.0.1",
+    "pg": "^7.11.0",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^4.0.8",
+    "typeorm": "^0.2.17",
+    "uuid": "^3.3.2"
+  }
+}
