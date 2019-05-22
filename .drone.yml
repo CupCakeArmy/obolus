@@ -1,0 +1,56 @@
+kind: pipeline
+name: default
+
+steps:
+
+  - name: build-www
+    image: node:12-alpine
+    pull: always
+    commands:
+      - cd www
+      - npm i
+      - npm run build
+
+  - name: build-api
+    image: node:12-alpine
+    pull: always
+    commands:
+      - cd api
+      - npm i
+      - npm run build
+      - rm -r node_modules package-lock.json
+      - npm i --only=prod
+
+  - name: build-api
+    image: node:12-alpine
+    pull: always
+    commands:
+      - node -v
+      - npm -v
+      - npm --prefix api i
+      - npm --prefix www i
+
+#  - name: deploy
+#    image: cupcakearmy/drone-deploy
+#    pull: always
+#    environment:
+#      PLUGIN_KEY:
+#        from_secret: ssh_key
+#    settings:
+#      host: nicco.io
+#      user: root
+#      port: 1312
+#      target: /srv/web/obolus
+#      sources:
+#        - ./api/dist
+#        - ./api/node_modules
+#        - ./www/.next
+#        - ./www/server.js
+#        - ./www/node_modules
+#        - ./docker-compose.prod.yml
+#      commands:
+#        - docker-compose -f docker-compose.prod.yml down
+#        - docker-compose -f docker-compose.prod.yml up -d
+#    when:
+#      event: push
+#      branch: master
