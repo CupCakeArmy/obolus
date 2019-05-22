@@ -1,0 +1,11 @@
+* {
+    --clr-primary: hsl(194, 100%, 88%);
+    --clr-white: #ffffff;
+    --clr-black: #000000;
+    --clr-dark: #222222;
+    --clr-light: #eeeeee;
+    --text-width: 35rem;
+    --animation: all 100ms ease;
+
+    -webkit-overflow-scrolling: touch;
+}
