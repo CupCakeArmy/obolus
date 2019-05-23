@@ -37,6 +37,7 @@ steps:
         - ./api/dist
         - ./api/node_modules
         - ./api/package.json
+        - ./api/static
         - ./www/.next
         - ./www/server.js
         - ./www/node_modules
