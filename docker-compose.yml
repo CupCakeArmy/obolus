@@ -1,0 +1,22 @@
+version: '3.6'
+
+x-defaults: &default
+  image: node:12-alpine
+  restart: always
+  working_dir: /app
+  command: npm run dev
+
+services:
+  api:
+    <<: *default
+    volumes:
+      - ./api:/app
+    ports:
+      - 5000:80
+
+  www:
+    <<: *default
+    volumes:
+      - ./www:/app
+    ports:
+      - 80:80
