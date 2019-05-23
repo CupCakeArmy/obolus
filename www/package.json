@@ -4,7 +4,7 @@
     ".next/**/*"
   ],
   "scripts": {
-    "dev": "node server.js",
+    "dev": "npm i && node server.js",
     "prod": "NODE_ENV=production node server.js",
     "build": "next build"
   },

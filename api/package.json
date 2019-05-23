@@ -4,7 +4,8 @@
     "pkg": "tsc && pkg --targets latest-alpine-x64 --output ./server dist/server.js",
     "pkg:mac": "tsc && pkg --targets latest-macos-x64 --output ./server-macos dist/server.js",
     "prod": "NODE_ENV=production node dist/server.js",
-    "dev": "tsnd --no-notify src/server.ts"
+    "build": "tsc",
+    "dev": "npm i && tsnd --no-notify src/server.ts"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.2",
