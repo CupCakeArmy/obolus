@@ -36,9 +36,11 @@ steps:
       sources:
         - ./api/dist
         - ./api/node_modules
+        - ./api/package.json
         - ./www/.next
         - ./www/server.js
         - ./www/node_modules
+        - ./www/package.json
         - ./docker-compose.prod.yml
       commands:
     #        - docker-compose -f docker-compose.prod.yml down
