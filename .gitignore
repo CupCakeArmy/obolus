@@ -1,5 +1,10 @@
+# generated / downloaded
 node_modules/
 package-lock.json
 dist/
 .next/
 .idea/
+
+# runtime files
+config.yml
+db.sqlite
