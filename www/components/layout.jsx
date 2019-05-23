@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
                 <section className="navbar-section">
                     <Link href='/'>
                         <a className="btn btn-link">
-                            <img src={'/static/icons/ui/stats.svg'} alt={'overview'}/>
+                            <img src={'/static/icons/ui/trending.svg'} alt={'overview'}/>
                             <span className={'hide-sm'}> Overview</span>
                         </a>
                     </Link>
@@ -35,6 +35,12 @@ const Layout = ({ children }) => {
                         <a className="btn btn-link">
                             <img src={'/static/icons/ui/add.svg'} alt={'add'}/>
                             <span className={'hide-sm'}> New</span>
+                        </a>
+                    </Link>
+                    <Link href='/list'>
+                        <a className="btn btn-link">
+                            <img src={'/static/icons/ui/check.svg'} alt={'list'}/>
+                            <span className={'hide-sm'}> List</span>
                         </a>
                     </Link>
                 </section>
