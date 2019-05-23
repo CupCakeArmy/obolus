@@ -7,10 +7,10 @@
 git clone https://github.com/CupCakeArmy/obolus.git
 cd obolus
 
-// local
-npm run dev:local
+// with docker (recommended)
+npm run dev:docker
 
-// or with docker
+// or locally
 npm run dev:docker
 
 // -> http://localhost 🚀
