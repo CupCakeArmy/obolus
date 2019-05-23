@@ -22,27 +22,27 @@ steps:
       - npm i --only=prod
 
 
-#  - name: deploy
-#    image: cupcakearmy/drone-deploy
-#    pull: always
-#    environment:
-#      PLUGIN_KEY:
-#        from_secret: ssh_key
-#    settings:
-#      host: nicco.io
-#      user: root
-#      port: 1312
-#      target: /srv/web/obolus
-#      sources:
-#        - ./api/dist
-#        - ./api/node_modules
-#        - ./www/.next
-#        - ./www/server.js
-#        - ./www/node_modules
-#        - ./docker-compose.prod.yml
-#      commands:
-#        - docker-compose -f docker-compose.prod.yml down
-#        - docker-compose -f docker-compose.prod.yml up -d
-#    when:
-#      event: push
-#      branch: master
+  - name: deploy
+    image: cupcakearmy/drone-deploy
+    pull: always
+    environment:
+      PLUGIN_KEY:
+        from_secret: ssh_key
+    settings:
+      host: nicco.io
+      user: root
+      port: 1312
+      target: /srv/web/obolus
+      sources:
+        - ./api/dist
+        - ./api/node_modules
+        - ./www/.next
+        - ./www/server.js
+        - ./www/node_modules
+        - ./docker-compose.prod.yml
+      commands:
+    #        - docker-compose -f docker-compose.prod.yml down
+    #        - docker-compose -f docker-compose.prod.yml up -d
+    when:
+      event: push
+      branch: master

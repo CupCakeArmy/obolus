@@ -5,6 +5,12 @@ x-defaults: &default
   restart: always
   working_dir: /app
   command: npm run prod
+  ports:
+    - 80
+
+networks:
+  traefik:
+    external: true
 
 services:
   api:
@@ -16,3 +22,12 @@ services:
     <<: *default
     volumes:
       - ./www:/app
+    networks:
+      - default
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.docker.network=traefik
+      - traefik.backend=obolus
+      - traefik.frontend.rule=Host:obolus.nicco.io
