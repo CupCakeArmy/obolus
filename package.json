@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "scripts": {
+    "dev:local": "npm --prefix ./www run dev:local & npm --prefix ./api run dev",
+    "dev:docker": "docker-compose up",
+    "clean": "rm -r ./api/node_modules ./api/package-lock.json ./www/node_modules ./www/package-lock.json"
+  }
+}

@@ -12,7 +12,9 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 const proxy = httpProxy.createProxyServer()
-const target = 'http://api'
+const target = dev
+    ? `http://${process.env.API_HOST || 'api'}:5000`
+    : 'http://api'
 
 app.prepare().then(() => {
 

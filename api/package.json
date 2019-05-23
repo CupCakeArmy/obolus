@@ -1,11 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "pkg": "tsc && pkg --targets latest-alpine-x64 --output ./server dist/server.js",
-    "pkg:mac": "tsc && pkg --targets latest-macos-x64 --output ./server-macos dist/server.js",
-    "prod": "NODE_ENV=production node dist/server.js",
     "build": "tsc",
-    "dev": "npm i && tsnd --no-notify src/server.ts"
+    "dev": "npm install --silent && tsnd --no-notify src/server.ts",
+    "prod": "NODE_ENV=production node dist/server.js"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.2",

@@ -15,12 +15,6 @@ import router from './routes'
 createConnection({
 	type: 'sqlite',
 	database: join(process.cwd(), 'db.sqlite'),
-	// type: "mysql",
-	// host: "localhost",
-	// port: 3306,
-	// username: 'test',
-	// password: 'test',
-	// database: 'data',
 	entities: [User, Purchase],
 	synchronize: true,
 }).then(async () => {
@@ -31,7 +25,9 @@ createConnection({
 		await User.createOrGet(user)
 	}
 
-	const port = Config.get<number>('server.port')
+	const port = process.env.NODE_ENV !== 'production'
+		? 5000
+		: 80
 	const server = new Koa()
 
 	server.use(responseTime)

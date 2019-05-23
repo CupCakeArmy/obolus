@@ -1,12 +1,10 @@
 {
   "private": true,
-  "assets": [
-    ".next/**/*"
-  ],
   "scripts": {
-    "dev": "npm i && node server.js",
-    "prod": "NODE_ENV=production node server.js",
-    "build": "next build"
+    "build": "next build",
+    "dev": "npm install --silent && node server.js",
+    "dev:local": "npm install --silent && API_HOST=localhost node server.js",
+    "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
