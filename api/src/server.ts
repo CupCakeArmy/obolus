@@ -5,6 +5,7 @@ import Parser from 'koa-bodyparser'
 import { join } from 'path'
 import { createConnection } from 'typeorm'
 
+import Item from './entities/item'
 import Purchase from './entities/purchase'
 import User from './entities/user'
 import { Config } from './lib/config'
@@ -15,7 +16,7 @@ import router from './routes'
 createConnection({
 	type: 'sqlite',
 	database: join(process.cwd(), 'db.sqlite'),
-	entities: [User, Purchase],
+	entities: [User, Purchase, Item],
 	synchronize: true,
 }).then(async () => {
 
