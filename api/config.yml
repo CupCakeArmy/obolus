@@ -1,0 +1,8 @@
+users:
+  - alice
+  - bob
+security:
+  password: mySecr3t
+  jwt:
+    algorithm: HS512
+    expiresIn: 90 days
