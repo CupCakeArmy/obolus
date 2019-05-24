@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import nextCookie from 'next-cookies'
 import axios from 'axios'
 import cookie from 'js-cookie'
@@ -26,4 +27,18 @@ export const callAPI = async (ctxOrNull, { url, method, data }) => {
 
     if (response.status === 401) redirect()
     else return response.data.body
+}
+
+export const useCallAPI = (call) => {
+    const [data, setData] = useState(undefined)
+
+    const refresh = () => {
+        callAPI(null, call).then(setData)
+    }
+
+    useEffect(() => {
+        refresh()
+    }, [0])
+
+    return [data, refresh]
 }
