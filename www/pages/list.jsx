@@ -17,11 +17,16 @@ const List = ({ fetched }) => {
         input.current.focus()
     }, [input])
 
-    const _submit = () => callAPI(null, {
-        url: `/api/items/`,
-        method: 'post',
-        data: { text },
-    }).then(refresh)
+    const _submit = async (e) => {
+        e.preventDefault()
+        await callAPI(null, {
+            url: `/api/items/`,
+            method: 'post',
+            data: { text },
+        })
+        setText('')
+        refresh()
+    }
 
     const _clear = () => callAPI(null, {
         url: `/api/items/`,

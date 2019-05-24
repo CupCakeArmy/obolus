@@ -4,11 +4,11 @@ import React from 'react'
 
 const Item = ({ id, text, done, refresh }) => {
 
-    const _done = (e) => callAPI(null, {
+    const _done = () => callAPI(null, {
         url: `/api/items/${id}`,
         method: 'patch',
         data: {
-            done: e.target.checked,
+            done: !done,
         },
     }).then(refresh)
 
@@ -17,35 +17,29 @@ const Item = ({ id, text, done, refresh }) => {
         method: 'delete',
     }).then(refresh)
 
-    return <tr className="item">
+    return <tr className="item" onClick={_done}>
         <td className="item-done">
             <div className="form-group">
                 <label className="form-checkbox">
-                    <input type="checkbox" checked={done} onChange={_done}/>
+                    <input type="checkbox" checked={done} readOnly/>
                     <i className="form-icon"/>
                 </label>
             </div>
         </td>
         <td>{text}</td>
         <td className="item-menu">
-            <div className="dropdown dropdown-right">
-                <a className="btn btn-link dropdown-toggle" tabIndex="0">
-                    <i className="icon icon-more-vert"/>
-                </a>
-                <ul className="menu">
-                    <li className="menu-item">
-                        <a onClick={_delete}>
-                            <i className="icon icon-delete"/> Delete
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <button className="btn btn-action btn-error" onClick={_delete}>
+                <i className="icon icon-delete"/>
+            </button>
         </td>
         {/* language=CSS */}
         <style jsx>{`
-            .item-done,
-            .item-menu {
+            .item-done {
                 width: 2em;
+            }
+
+            .item-menu {
+                width: 1em;
             }
         `}</style>
     </tr>
