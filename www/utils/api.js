@@ -29,16 +29,17 @@ export const callAPI = async (ctxOrNull, { url, method, data }) => {
     else return response.data.body
 }
 
-export const useCallAPI = (call) => {
+export const useCallAPI = (call, automatic = false) => {
     const [data, setData] = useState(undefined)
 
     const refresh = () => {
         callAPI(null, call).then(setData)
     }
 
-    useEffect(() => {
-        refresh()
-    }, [0])
+    if (automatic)
+        useEffect(() => {
+            refresh()
+        }, [0])
 
     return [data, refresh]
 }
