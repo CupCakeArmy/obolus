@@ -2,93 +2,36 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { withAuthSync } from '../utils/auth'
 import Layout from '../components/layout'
-import { callAPI } from '../utils/api'
+import { callAPI, useCallAPI } from '../utils/api'
+import Item from '../components/item'
 
 
-const Item = ({ id, text, done }) => {
-
-    const handleDone = async (e) => {
-        await callAPI(null, {
-            url: `/api/items/${id}`,
-            method: 'patch',
-            data: {
-                done: e.target.checked,
-            },
-        })
-        window.location.reload()
-    }
-
-    const handleDelete = async (e) => {
-        await callAPI(null, {
-            url: `/api/items/${id}`,
-            method: 'delete',
-        })
-        window.location.reload()
-    }
-
-    return <tr className="item">
-        <td className="item-done">
-            <div className="form-group">
-                <label className="form-checkbox">
-                    <input type="checkbox" checked={done} onChange={handleDone}/>
-                    <i className="form-icon"/>
-                </label>
-            </div>
-        </td>
-        <td>{text}</td>
-        <td className="item-menu">
-            <div className="dropdown dropdown-right">
-                <a className="btn btn-link dropdown-toggle" tabIndex="0">
-                    <i className="icon icon-more-vert"/>
-                </a>
-                <ul className="menu">
-                    <li className="menu-item">
-                        <a onClick={handleDelete}>
-                            <i className="icon icon-delete"/> Delete
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-        {/* language=CSS */}
-        <style jsx>{`
-            .item-done,
-            .item-menu {
-                width: 2em;
-            }
-        `}</style>
-    </tr>
-}
-
-const List = ({ items }) => {
+const List = ({ fetched }) => {
 
     const input = useRef(undefined)
     const [text, setText] = useState('')
+    const [data, refresh] = useCallAPI({ url: `/api/items` })
 
     useEffect(() => {
         if (!input.current) return
         input.current.focus()
     }, [input])
 
-    const submit = async () => {
-        await callAPI(null, {
-            url: `/api/items/`,
-            method: 'post',
-            data: { text },
-        })
-        window.location.reload()
-    }
+    const _submit = () => callAPI(null, {
+        url: `/api/items/`,
+        method: 'post',
+        data: { text },
+    }).then(refresh)
 
-    const deleteAll = async () => {
-        await callAPI(null, {
-            url: `/api/items/`,
-            method: 'delete',
-        })
-        window.location.reload()
-    }
+    const _clear = () => callAPI(null, {
+        url: `/api/items/`,
+        method: 'delete',
+    }).then(refresh)
+
+    const items = data || fetched
 
     return <Layout>
-        <form onSubmit={submit}>
+        <form onSubmit={_submit}>
             <div className="input-group">
                 <input
                     type="text" className="form-input" placeholder="..." ref={input}
@@ -99,16 +42,16 @@ const List = ({ items }) => {
         <br/>
         <table className="table table-hover">
             <tbody>
-            {items.map((item, i) => <Item key={i} {...item} />)}
+            {items.map((item, i) => <Item key={i} {...item} refresh={refresh}/>)}
             </tbody>
         </table>
         <br/>
-        <button onClick={deleteAll} className="btn btn-error">Delete All</button>
+        <button onClick={_clear} className="btn btn-error">Delete All</button>
     </Layout>
 }
 
 List.getInitialProps = async ctx => ({
-    items: await callAPI(ctx, { url: `/api/items` }),
+    fetched: await callAPI(ctx, { url: `/api/items` }),
 })
 
 export default withAuthSync(List)
