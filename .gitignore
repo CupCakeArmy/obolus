@@ -6,5 +6,5 @@ dist/
 .idea/
 
 # runtime files
-config.yml
-db.sqlite
+api/db.sqlite
+api/config.yml
