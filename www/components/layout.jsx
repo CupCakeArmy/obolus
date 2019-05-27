@@ -1,19 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
 import { logout } from '../utils/auth'
 import { getRandomSlogan } from '../utils/misc'
+import { editableWhenOnline } from '../utils/hooks'
 
 
 const Layout = ({ children }) => {
     const title = getRandomSlogan()
 
+    const online = typeof window !== 'undefined'
+        ? editableWhenOnline()
+        : true
+
+    useEffect(() => {
+        if (window && 'navigator' in window && 'serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+            })
+        }
+    }, [])
+
     return <React.Fragment>
         <Head>
             <title>{title}</title>
 
-            {/* https://www.flaticon.com/packs/zoo-20 */}
             <link rel="stylesheet" href="/static/css/spectre.min.css"/>
             <link rel="stylesheet" href="/static/css/spectre-exp.min.css"/>
             <link rel="stylesheet" href="/static/css/spectre-icons.min.css"/>
@@ -70,10 +82,19 @@ const Layout = ({ children }) => {
             </div>
         </main>
 
+        {!online && <div id="msg-offline" className="bg-dark text-center p-2">Offline</div>}
+
         {/* language=CSS */}
         <style jsx>{`
             main {
                 padding: 6em 0;
+            }
+
+            #msg-offline {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100vw;
             }
 
             #navbar-container {

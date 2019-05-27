@@ -22,7 +22,9 @@ app.prepare().then(() => {
         const parsedUrl = parse(req.url, true)
         const { pathname } = parsedUrl
 
-        if (pathname.startsWith('/api/'))
+        if (pathname === '/sw.js')
+            handle(req, res, parse('/static/sw.js', true))
+        else if (pathname.startsWith('/api/'))
             proxy.web(req, res, { target }, error => console.log('Error!', error))
         else
             handle(req, res, parsedUrl)
