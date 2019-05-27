@@ -25,12 +25,11 @@ steps:
   - name: deploy
     image: cupcakearmy/drone-deploy
     pull: always
-    environment:
-      PLUGIN_KEY:
-        from_secret: ssh_key
     settings:
       host: nicco.io
       user: root
+      key:
+        from_secret: ssh_key
       port: 1312
       target: /srv/web/obolus
       sources:
